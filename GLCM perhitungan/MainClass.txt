@@ -1,0 +1,199 @@
+package main;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.log10;
+
+public class MainClass {
+
+	final static int[][] matrix= {
+			{2,4,1,3},
+			{7,2,1,6},
+			{1,1,2,2},
+			{1,2,5,8}
+	};
+	static int maxValue = matrix[0][0];
+	static int minValue = matrix[0][0];
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		simpanData number = new simpanData();
+		
+
+		System.out.println("-----------------------------");
+		System.out.println("Matrix Asal");
+		System.out.println("-----------------------------");
+		
+		//mencari maxValue
+		for(int p = 0; p< matrix.length; p++) {
+			for(int q=0; q < matrix[p].length; q++) {
+				System.out.print(matrix[p][q] + "| ");
+				if(matrix[p][q] > maxValue) {
+					maxValue=matrix[p][q];
+					number.setMaxValue(maxValue);
+					
+				}
+				else if(matrix[p][q] < minValue) {
+					minValue=matrix[p][q];
+				}
+			}
+			System.out.println();
+		}
+
+		System.out.println("-----------------------------");
+		System.out.println("maxValue = "+ number.getMaxValue());
+		
+		//buat matrix baru
+		int newmatrix[][]= new int[number.getMaxValue()][number.getMaxValue()];
+		int c = 0;
+		for(int i = 0; i < number.getMaxValue(); i++){
+			for(int j=0; j<number.getMaxValue(); j++) {
+				newmatrix[i][j]=c;
+			}
+		}
+		
+		//Isikan matrix baru
+		int a = 0;
+		int b = 0;
+		for(int x = 0; x < matrix.length; x++) {
+			for(int y=0; y< matrix.length - 1; y++) {
+				a = matrix[x][y] -1;
+				b = matrix[x][y + 1] -1;
+				newmatrix[a][b] = newmatrix[a][b] + 1;
+			}
+		}
+		
+		System.out.println("-----------------------------");
+		System.out.println("Matrix Coocurence");
+		System.out.println();
+		
+		//print matrix coocurence
+		for(int m = 0; m < number.getMaxValue(); m++) {
+			for(int n = 0; n < number.getMaxValue(); n++) {
+				System.out.print(newmatrix[m][n]+ "|");
+			}
+			System.out.println();
+		}
+		
+		System.out.println("-----------------------------");
+		
+		//Normalisasi matrix
+		
+		//matrix 8x8 kosongan buat transpose
+		int nmTranspose[][] = new int [number.getMaxValue()][number.getMaxValue()];
+		int z =0;
+		for(int i=0; i <nmTranspose.length; i++) {
+			for(int j=0; j< nmTranspose.length; j++) {
+				nmTranspose[i][j]=z;
+			}
+		}
+		System.out.println(" Matrix Transpose");
+		
+		//transpose matrix
+		System.out.println("-----------------------------");
+		
+		for(int i=0; i< newmatrix.length; i++ ) {
+			for(int j=0; j< newmatrix.length; j++) {
+				nmTranspose[i][j]= newmatrix[j][i];
+				System.out.print(nmTranspose[i][j] + "|");
+			}
+			System.out.println();
+		}
+		
+		System.out.println("-----------------------------");
+		
+		//matrix 8x8 kosongan buat matrix Simetris
+		int matrixSimetris[][] = new int [number.getMaxValue()][number.getMaxValue()];
+		int zs =0;
+		for(int i=0; i < matrixSimetris.length; i++) {
+			for(int j=0; j< matrixSimetris.length; j++) {
+				matrixSimetris[i][j]=zs;
+			}
+		}
+		
+		System.out.println(" Matrix Simetris");
+		
+		System.out.println("-----------------------------");
+		
+		//print matrix simetris
+		for(int i=0; i< newmatrix.length; i++ ) {
+			for(int j=0; j< newmatrix.length; j++) {
+				matrixSimetris[i][j] = nmTranspose[i][j] + newmatrix[i][j];
+				System.out.print(matrixSimetris[i][j] + "|");
+			}
+			System.out.println();
+		}
+		
+		System.out.println("-----------------------------");
+		
+		//mencari jumlah seluruh nilai piksel
+		int sum = 0;
+		for(int m = 0; m < number.getMaxValue(); m++) {
+			for(int n = 0; n < number.getMaxValue(); n++) {
+				sum = sum + matrixSimetris[m][n];
+				number.setSumAllValue(sum);
+			}
+		}
+		
+		System.out.println("jumlh keseluruhan piksel = "+ sum);
+		System.out.println("-----------------------------");
+		
+		//GLCM matrix ternormalisasi
+		
+		//matrix 8x8 kosongan buat matrix Simetris
+		double matrixNormalisasi[][] = new double [number.getMaxValue()][number.getMaxValue()];
+		int mN =0;
+		for(int i=0; i < matrixSimetris.length; i++) {
+					for(int j=0; j< matrixSimetris.length; j++) {
+						matrixNormalisasi[i][j]=mN;
+					}
+		}
+		
+		System.out.println("Matrix Normalisasi");
+		System.out.println("-----------------------------");
+		
+		//membagi nilai setiap pixel dengan jumlah seluruh pixel
+		
+		for(int m = 0; m < number.getMaxValue(); m++) {
+			for(int n = 0; n < number.getMaxValue(); n++) {
+				double divide = matrixSimetris[m][n]/number.getAllValue();
+				matrixNormalisasi[m][n] = divide;
+				System.out.print(String.format("%.3f", matrixNormalisasi[m][n]) + "|");
+			}
+			System.out.println();
+		}
+		
+		//enthropy energy homogenity dll
+		double energy = 0;
+		double contrast = 0;
+		double homogenity = 0;
+		double IDM = 0;
+		double entrophy = 0;
+		double mean1 = 0;
+		
+		for(int i=0; i<number.getMaxValue(); i++) {
+			for(int j=0; j< number.getMaxValue(); j++) {
+				energy = energy + (matrixNormalisasi[i][j] * matrixNormalisasi[i][j]);
+				contrast = (contrast + (i-j)) * (i-j) * matrixNormalisasi[i][j];
+				homogenity      = (homogenity+ matrixNormalisasi[i][j] / (1+ abs(i-j)));
+				if(i!=j){
+                    IDM = (IDM + matrixNormalisasi[i][j])/((i-j)*(i-j));
+                }else if(matrixNormalisasi[i][j]!=0){
+                    entrophy = (double) (entrophy- matrixNormalisasi[i][j]  *log10(matrixNormalisasi[i][j]));
+                    mean1 = (double) (mean1 + 0.5 * (i* matrixNormalisasi[i][j]+j * matrixNormalisasi[i][j]));
+                }
+                
+			}
+		}
+		
+		System.out.println("-----------------------------");
+		System.out.println("Energy = "+ String.format("%.5f", energy));
+		System.out.println("Contrast = " + contrast);
+		System.out.println("Homogenity = " + String.format("%.5f", homogenity));
+		System.out.println("IDM = " + String.format("%.5f", IDM));
+		System.out.println("Entrophy = " + String.format("%.5f", entrophy));
+		System.out.println("Mean = " + String.format("%.5f", mean1));
+		
+		
+	}
+}

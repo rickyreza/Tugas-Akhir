@@ -1,0 +1,29 @@
+package main;
+
+public class simpanData {
+
+	int maxValue ;
+	int minValue;
+	double sumAllValue;
+	
+	public void setSumAllValue(double allvalue) {
+		this.sumAllValue = allvalue;
+	}
+	
+	public double getAllValue() {
+		return sumAllValue;
+	}
+	
+	public void setMaxValue(int mv) {
+		this.maxValue = mv;
+	}
+	
+    public int getMaxValue() {
+    	return maxValue;
+    }
+	
+	public void setMinValue() {
+		
+	}
+	
+}

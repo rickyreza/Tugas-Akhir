@@ -1,0 +1,13 @@
+javah -d jni -classpath ../../build/intermediates/classes/debug com.ricky.aplikasi.sampledetection.NativeClass
+javah -d jni -classpath ../../build/intermediates/classes/debug com.ricky.aplikasi.cobainjni.NativeClass
+
+E:/Aplikasi/AndroidNDK/android-ndk-r17-windows-x86_64/android-ndk-r17/
+
+C:/Users/do/AppData/Local/Android/sdk/ndk-bundle/ndk-build.cmd
+
+((TextView)findViewById(R.id.textlewatjni).setText(NativeClass.getMessageFromJNI());
+
+android-gpuimage-master/library/build/intermediates/ndk/debug/Android.mk
+
+set(pathToProject E:/Android/SampleDetection)
+set(pathToOpenCv E:/Aplikasi/OpenCV/OpenCV-3.1.0-android-sdk)

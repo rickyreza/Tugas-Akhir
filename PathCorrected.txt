@@ -1,0 +1,2 @@
+set(pathToProject E:/Android/AndroidOpenCVBlobDetection)
+set(pathToOpenCv E:/Aplikasi/OpenCV/OpenCV-3.1.0-android-sdk/OpenCV-android-sdk)

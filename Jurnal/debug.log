@@ -1,0 +1,6 @@
+[0813/204045.494:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0813/204045.525:ERROR:crashpad_client_win.cc(130)] crash server failed to launch, self-terminating
+[0813/210842.695:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0813/210842.695:ERROR:crashpad_client_win.cc(130)] crash server failed to launch, self-terminating
+[0813/210850.475:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0813/210850.475:ERROR:crashpad_client_win.cc(130)] crash server failed to launch, self-terminating
